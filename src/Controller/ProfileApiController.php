@@ -71,6 +71,12 @@ class ProfileApiController extends AbstractController
         return new Response();
     }
 
+    #[Route('/{profile}', methods: ['GET'])]
+    public function get(Profile $profile)
+    {
+        return new JsonResponse($profile->toData());
+    }
+
     #[Route('/{profile}', methods: ['PUT'])]
     public function put(Request $request, CompanyRepository $companyRepository, ProfileRepository $profileRepository,
                         Profile $profile = null): Response
