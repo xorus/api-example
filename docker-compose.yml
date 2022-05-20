@@ -1,6 +1,14 @@
 version: '3'
 
 services:
+  app:
+    build: .
+    volumes:
+      - ".:/app:rw"
+    ports:
+      - "8840:8840"
+
+
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
@@ -11,6 +19,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-symfony}
     volumes:
       - db-data:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
