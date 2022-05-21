@@ -52,6 +52,7 @@ class ProfileApiController extends AbstractController
         $entity->setCompany($company);
         $entity->setName(trim($json->name));
         $entity->setSurname(trim($json->surname));
+        $entity->setPhone(null);
 
         if (isset($json->phone)) {
             $entity->setPhone(trim($json->phone));
