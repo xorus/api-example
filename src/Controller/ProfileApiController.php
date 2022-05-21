@@ -5,15 +5,10 @@ namespace App\Controller;
 use App\Entity\Profile;
 use App\Repository\CompanyRepository;
 use App\Repository\ProfileRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/profile')]
@@ -23,7 +18,7 @@ class ProfileApiController extends AbstractController
     public function index(ProfileRepository $repo): JsonResponse
     {
         $data = [];
-        foreach ($repo->findAll() as $item) {
+        foreach ($repo->findBy([], ['id' => 'asc']) as $item) {
             $data[] = $item->toData();
         }
         return new JsonResponse($data);
